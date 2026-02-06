@@ -13,9 +13,7 @@ export async function generateRequestHeadersFile(params: GenerateDevelopmentFile
   const blockPath = getBlockPath(params.projectPath, params.block);
   const sourcePath = params.fs.join(
     params.resourcesPath,
-    'typescript',
-    'development',
-    'request_headers.json'
+    'typescript_development_request_headers.json'
   );
   const destPath = params.fs.join(blockPath, '.orixen', 'request', 'request_headers.json');
   await params.fs.copy(sourcePath, destPath);

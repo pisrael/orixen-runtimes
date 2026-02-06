@@ -69,7 +69,9 @@ runtimes/
 │       ├── common/           # Shared TypeScript generation logic
 │       └── aws/              # AWS-specific code generation
 │           └── terraform/    # AWS Terraform resource definitions
-├── resources/                # Handlebars templates
+├── resources/                # Flat resource files (templates, runtime code)
+│   │   # Files use underscores instead of path separators
+│   │   # (e.g. typescript_aws_lambda_handler.ts) for Tauri bundling compatibility
 └── test/                     # Unit, integration, and e2e tests
 ```
 

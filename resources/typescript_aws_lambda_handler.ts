@@ -1,16 +1,33 @@
+import { InvocationResponse } from 'aws-sdk/clients/lambda';
+
+import {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand
+} from '@aws-sdk/client-apigatewaymanagementapi';
+
+import blockFunction from '../index';
+import {
+  FunctionError,
+  StatusCode
+} from './function-status';
 import {
   Event,
-  getHandlerInputData,
+  getHandlerInputData
 } from './handler-io';
+import HandlerResult from './handler-result';
+import {
+  INPUT_SYNCHRONOUS,
+  OUTPUT_NAME_TO_ID,
+  OUTPUT_RESPONSE,
+  OUTPUTS_TYPES
+} from './ids';
+import {
+  InputData,
+  OutputData,
+  SendOptions
+} from './io-types';
 import { sendToFunction } from './send-to-function';
 import { sendToQueue } from './send-to-queue';
-import blockFunction from '../index';
-import { INPUT_SYNCHRONOUS, OUTPUT_NAME_TO_ID, OUTPUT_RESPONSE, OUTPUTS_TYPES } from './ids';
-import { FunctionError, StatusCode } from './function-status';
-import HandlerResult from './handler-result';
-import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
-import { InvocationResponse } from 'aws-sdk/clients/lambda';
-import { InputData, OutputData, SendOptions } from './io-types';
 
 type SendFunction = (payload: any, to?: string, options?: SendOptions) => void;
 type BlockFunction = (input: any, sendFunction?: SendFunction) => Promise<void>;

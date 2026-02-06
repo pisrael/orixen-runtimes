@@ -21,8 +21,7 @@ export async function generateDevelopmentLibFiles(params: GenerateDevelopmentFil
 async function copyCliFile(fs: FileSystem, resourcePath: string, blockLibPath: string): Promise<void> {
   const sourcePath = fs.join(
     resourcePath,
-    'development',
-    'cli.ts'
+    'typescript_development_cli.ts'
   );
   const destPath = fs.join(blockLibPath, 'cli.ts');
   await fs.copy(sourcePath, destPath);
@@ -31,8 +30,7 @@ async function copyCliFile(fs: FileSystem, resourcePath: string, blockLibPath: s
 async function copyEnvFile(fs: FileSystem, resourcePath: string, libPath: string): Promise<void> {
   const sourcePath = fs.join(
     resourcePath,
-    'development',
-    'env.ts'
+    'typescript_development_env.ts'
   );
   const destPath = fs.join(libPath, 'env.ts');
   await fs.copy(sourcePath, destPath);

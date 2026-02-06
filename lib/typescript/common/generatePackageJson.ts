@@ -16,7 +16,7 @@ interface GeneratePackageJsonParams {
 
 export async function generatePackageJson(params: GeneratePackageJsonParams): Promise<void> {
   const blockPath = getBlockPath(params.projectPath, params.block);
-  const sourcePath = params.fs.join(params.resourcesPath, 'package.json.hbs');
+  const sourcePath = params.fs.join(params.resourcesPath, 'typescript_package.json.hbs');
   const templateContent = await params.fs.readFile(sourcePath);
 
   const template = Handlebars.compile(templateContent);

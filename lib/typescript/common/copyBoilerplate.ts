@@ -16,13 +16,13 @@ export async function copyBlockBoilerplate(params: CopyBlockBoilerplateParams): 
 }
 
 async function copyTsConfig(params: CopyBlockBoilerplateParams, blockPath: string): Promise<void> {
-  const sourcePath = params.fs.join(params.resourcesPath, 'tsconfig.json');
+  const sourcePath = params.fs.join(params.resourcesPath, 'typescript_tsconfig.json');
   const destPath = params.fs.join(blockPath, 'tsconfig.json');
   await params.fs.copy(sourcePath, destPath);
 }
 
 async function copyDockerfileTemplate(params: CopyBlockBoilerplateParams, blockPath: string): Promise<void> {
-  const sourcePath = params.fs.join(params.resourcesPath, 'Dockerfile.hbs');
+  const sourcePath = params.fs.join(params.resourcesPath, 'typescript_Dockerfile.hbs');
   const destPath = params.fs.join(blockPath, 'Dockerfile.hbs');
   await params.fs.copy(sourcePath, destPath);
 }

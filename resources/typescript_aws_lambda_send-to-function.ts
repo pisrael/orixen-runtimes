@@ -1,4 +1,5 @@
 import { Lambda } from 'aws-sdk';
+
 import { OutputData } from './io-types';
 
 export async function sendToFunction(

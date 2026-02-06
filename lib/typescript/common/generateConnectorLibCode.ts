@@ -17,7 +17,7 @@ export async function generateConnectorLibCode({
   parsed,
   connectorType,
 }: GenerateConnectorLibCodeParams): Promise<string> {
-  const templatePath = fs.join(resourcesPath, `${connectorType}.ts.hbs`);
+  const templatePath = fs.join(resourcesPath, `typescript_${connectorType}.ts.hbs`);
   const templateContent = await fs.readFile(templatePath);
 
   const template = Handlebars.compile(templateContent);

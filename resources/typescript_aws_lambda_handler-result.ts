@@ -1,5 +1,5 @@
 import { StatusCode } from './function-status';
-import { OutputData } from "./io-types";
+import { OutputData } from './io-types';
 
 export default class HandlerResult {
   private _results: any[] = [];

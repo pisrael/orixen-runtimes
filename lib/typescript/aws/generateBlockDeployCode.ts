@@ -57,15 +57,16 @@ async function copyAwsRuntimeFiles(
   resourcesPath: string,
   blockDeployPath: string
 ): Promise<void> {
-  const awsLambdaPath = fs.join(resourcesPath, 'aws', 'lambda');
+  const prefix = 'typescript_aws_lambda_';
   const libPath = fs.join(blockDeployPath, '_lib');
 
-  const files = await fs.list(awsLambdaPath, { onlyFiles: true });
+  const files = await fs.list(resourcesPath, { onlyFiles: true });
 
   for (const file of files) {
-    if (file.name !== 'ts_package_changes.json') {
-      const sourcePath = fs.join(awsLambdaPath, file.name);
-      const destPath = fs.join(libPath, file.name);
+    if (file.name.startsWith(prefix) && file.name !== 'typescript_aws_lambda_ts_package_changes.json') {
+      const destName = file.name.slice(prefix.length);
+      const sourcePath = fs.join(resourcesPath, file.name);
+      const destPath = fs.join(libPath, destName);
       await fs.copy(sourcePath, destPath);
     }
   }
@@ -80,7 +81,7 @@ async function updatePackageJson(
   const devPackageJsonPath = fs.join(blockSourcePath, 'package.json');
   const devPackageJson = JSON.parse(await fs.readFile(devPackageJsonPath));
 
-  const awsChangesPath = fs.join(resourcesPath, 'aws', 'lambda', 'ts_package_changes.json');
+  const awsChangesPath = fs.join(resourcesPath, 'typescript_aws_lambda_ts_package_changes.json');
   const awsChanges = JSON.parse(await fs.readFile(awsChangesPath));
 
   devPackageJson.dependencies = { ...awsChanges.dependencies, ...devPackageJson.dependencies };

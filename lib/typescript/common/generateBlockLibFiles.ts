@@ -115,7 +115,7 @@ async function generateIoTypesFile(
   inputLength: number,
   outputLength: number
 ): Promise<void> {
-  const templatePath = fs.join(resourcesPath, 'io-types.ts.hbs');
+  const templatePath = fs.join(resourcesPath, 'typescript_io-types.ts.hbs');
   const templateContent = await fs.readFile(templatePath);
 
   const template = Handlebars.compile(templateContent);
@@ -129,7 +129,7 @@ async function copyFunctionStatusFile(
   resourcesPath: string,
   blockLibPath: string
 ): Promise<void> {
-  const sourcePath = fs.join(resourcesPath, 'function-status.ts');
+  const sourcePath = fs.join(resourcesPath, 'typescript_function-status.ts');
   const destPath = fs.join(blockLibPath, 'function-status.ts');
   await fs.copy(sourcePath, destPath);
 }

@@ -15,10 +15,7 @@ export async function generateVsCodeLaunchConfig(params: GenerateVsCodeLaunchCon
   const blockPath = getBlockPath(params.projectPath, params.block);
   const templatePath = params.fs.join(
     params.resourcesPath,
-    'typescript',
-    'development',
-    'vscode',
-    'launch.json.hbs'
+    'typescript_development_vscode_launch.json.hbs'
   );
 
   const templateContent = await params.fs.readFile(templatePath);

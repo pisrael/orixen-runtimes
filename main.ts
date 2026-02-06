@@ -28,7 +28,7 @@ async function main(): Promise<void> {
   const command = (args[2] as Command) || 'generate-lib';
 
   const projectPath = path.resolve(projectPathArg);
-  const resourcesPath = path.resolve(__dirname, 'lib');
+  const resourcesPath = path.resolve(__dirname, 'resources');
 
   console.log(`Project path: ${projectPath}`);
   console.log(`Runtime: ${runtime}`);

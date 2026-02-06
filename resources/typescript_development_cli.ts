@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 import './env';
+
 import * as fs from 'fs';
 import * as path from 'path';
+
 import run from '../index';
 import { OUTPUT_NAME_TO_ID } from './ids';
 import { SendOptions } from './io-types';

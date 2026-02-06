@@ -9,7 +9,7 @@ export default defineConfig({
     hookTimeout: isDebugging ? 500_000 : 10_000,
     exclude: [
       '**/node_modules/**',
-      //'**/e2e/**'
+      '**/e2e/**'
     ],
   },
 });

@@ -22,7 +22,7 @@ describe('generateBlockLib', () => {
   let tmpDir: string;
   let nodeFs: NodeFileSystem;
   let generator: TypeScriptGenerator;
-  const resourcesPath = path.resolve(__dirname, '../../../../../resources/typescript');
+  const resourcesPath = path.resolve(__dirname, '../../../../../resources');
 
   beforeEach(async () => {
     tmpDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'orixen-lib-'));

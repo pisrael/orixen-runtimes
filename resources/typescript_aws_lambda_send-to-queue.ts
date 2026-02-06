@@ -1,5 +1,6 @@
-import { SendMessageBatchResult } from 'aws-sdk/clients/sqs';
 import { SQS } from 'aws-sdk';
+import { SendMessageBatchResult } from 'aws-sdk/clients/sqs';
+
 import { OutputData } from './io-types';
 
 export async function sendToQueue(data: OutputData[], queueUrl: string) {

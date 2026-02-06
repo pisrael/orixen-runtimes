@@ -1,7 +1,19 @@
-import { APIGatewayProxyEvent, ScheduledEvent, SQSEvent } from 'aws-lambda';
-import { INPUT_CONNECTIONS, INPUT_SYNCHRONOUS } from './ids';
-import { InputData, OutputData } from './io-types';
+import {
+  APIGatewayProxyEvent,
+  ScheduledEvent,
+  SQSEvent
+} from 'aws-lambda';
+
+import {
+  INPUT_CONNECTIONS,
+  INPUT_SYNCHRONOUS
+} from './ids';
 import { InputNames } from './inputs';
+import {
+  InputData,
+  OutputData
+} from './io-types';
+
 export type Send<T> = (payload: T, outputName?: string) => void;
 
 export type Event = APIGatewayProxyEvent | SQSEvent | ScheduledEvent;

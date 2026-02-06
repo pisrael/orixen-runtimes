@@ -150,7 +150,7 @@ function assertCommandExists(command: string, message: string) {
 
 async function generateDeployArtifacts(tmpDir: string) {
   const projectPath = path.resolve(__dirname, '../../../../test-project');
-  const resourcesPath = path.resolve(__dirname, '../../../../../resources/typescript');
+  const resourcesPath = path.resolve(__dirname, '../../../../../resources');
 
   const nodeFs = new NodeFileSystem(tmpDir);
   const generator = new AwsTypeScriptGenerator();
