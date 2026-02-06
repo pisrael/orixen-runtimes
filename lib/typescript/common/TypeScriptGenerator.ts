@@ -11,10 +11,12 @@ import { Connection } from '../../types/connections/Connection';
 import { getBlockCodeParams } from '../../utils/getBlockCodeParams';
 import { isFunctionBlock } from '../../utils/isFunctionBlock';
 import {
+  copyBlockGitignore,
   generateBlockLibFiles,
   generateConnectorCode,
   generateDevelopmentLibFiles,
-  generateIndexTs
+  generateIndexTs,
+  generateVsCodeLaunchConfig
 } from './';
 import { copyBlockBoilerplate } from './copyBoilerplate';
 import { generatePackageJson } from './generatePackageJson';
@@ -28,13 +30,15 @@ export class TypeScriptGenerator implements GeneratorInterface {
     this.resourcesPath = context.resourcesPath;
   }
 
-  async generateNewBlockCodeForDevelopment(block: FunctionBlock, targetRootFolder: string): Promise<void> {
+  async generateNewBlockCodeForDevelopment(block: FunctionBlock, targetRootFolder: string, projectId: string): Promise<void> {
     await this.generateIndexFile(block, targetRootFolder);
     await this.generateInputConnectors(block, targetRootFolder);
     await this.generateOutputConnectors(block, targetRootFolder);
     await this.copyBlockBoilerplate(block, targetRootFolder);
     await this.generateBlockLib(block as any, [block as any], [], targetRootFolder);
     await this.generateCliLib(targetRootFolder, block);
+    await this.copyGitignore(block, targetRootFolder);
+    await this.generateLaunchConfig(block, targetRootFolder, projectId);
   }
 
   private async generateCliLib(targetRootFolder: string, block: FunctionBlock) {
@@ -43,6 +47,25 @@ export class TypeScriptGenerator implements GeneratorInterface {
       resourcesPath: this.resourcesPath,
       projectPath: targetRootFolder,
       block: block as any
+    });
+  }
+
+  private async copyGitignore(block: FunctionBlock, targetRootFolder: string): Promise<void> {
+    await copyBlockGitignore({
+      fs: this.fs,
+      resourcesPath: this.resourcesPath,
+      projectPath: targetRootFolder,
+      block,
+    });
+  }
+
+  private async generateLaunchConfig(block: FunctionBlock, targetRootFolder: string, projectId: string): Promise<void> {
+    await generateVsCodeLaunchConfig({
+      fs: this.fs,
+      resourcesPath: this.resourcesPath,
+      projectPath: targetRootFolder,
+      block,
+      projectId,
     });
   }
 

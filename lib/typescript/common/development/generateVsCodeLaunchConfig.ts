@@ -1,3 +1,5 @@
+import * as Handlebars from 'handlebars';
+
 import { FileSystem } from '../../../../filesystem';
 import { FunctionBlock } from '../../../types/blocks/FunctionBlock';
 import { getBlockPath } from '../../../utils';

@@ -44,7 +44,7 @@ describe('generateNewBlockCodeForDevelopment', () => {
       outputs: [createConnector({ id: 'out-1', name: 'defaultOut' })],
     });
 
-    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir);
+    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir, 'test-project-id');
 
     const indexPath = path.join(tmpDir, 'blocks', 'my_function-abc123', 'index.ts');
     expect(fs.existsSync(indexPath)).toBe(true);
@@ -64,7 +64,7 @@ describe('generateNewBlockCodeForDevelopment', () => {
       ],
     });
 
-    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir);
+    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir, 'test-project-id');
 
     const basePath = path.join(tmpDir, 'blocks', 'handler-h1');
     const input1 = path.join(basePath, 'inputs', 'firstInput.ts');
@@ -84,7 +84,7 @@ describe('generateNewBlockCodeForDevelopment', () => {
       outputs: [createConnector({ id: 'out-1', name: 'sync' })],
     });
 
-    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir);
+    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir, 'test-project-id');
 
     const outputPath = path.join(tmpDir, 'blocks', 'worker-w1', 'outputs', 'sync.ts');
     expect(fs.existsSync(outputPath)).toBe(true);
@@ -96,7 +96,7 @@ describe('generateNewBlockCodeForDevelopment', () => {
   it('copies tsconfig.json boilerplate', async () => {
     const block = createFunctionBlock({ title: 'Fn', id: 'f1' });
 
-    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir);
+    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir, 'test-project-id');
 
     const tsconfigPath = path.join(tmpDir, 'blocks', 'fn-f1', 'tsconfig.json');
     expect(fs.existsSync(tsconfigPath)).toBe(true);
@@ -105,7 +105,7 @@ describe('generateNewBlockCodeForDevelopment', () => {
   it('generates package.json with block title in PascalCase', async () => {
     const block = createFunctionBlock({ title: 'my cool function', id: 'mc1' });
 
-    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir);
+    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir, 'test-project-id');
 
     const pkgPath = path.join(tmpDir, 'blocks', 'my_cool_function-mc1', 'package.json');
     expect(fs.existsSync(pkgPath)).toBe(true);
@@ -122,7 +122,7 @@ describe('generateNewBlockCodeForDevelopment', () => {
       outputs: [],
     });
 
-    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir);
+    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir, 'test-project-id');
 
     const indexPath = path.join(tmpDir, 'blocks', 'noout-no1', 'index.ts');
     const content = fs.readFileSync(indexPath, 'utf-8');
@@ -138,7 +138,7 @@ describe('generateNewBlockCodeForDevelopment', () => {
       outputs: [createConnector({ id: 'out-1', name: 'defaultOut' })],
     });
 
-    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir);
+    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir, 'test-project-id');
 
     const indexPath = path.join(tmpDir, 'blocks', 'noin-ni1', 'index.ts');
     const content = fs.readFileSync(indexPath, 'utf-8');

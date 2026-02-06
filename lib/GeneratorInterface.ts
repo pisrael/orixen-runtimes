@@ -1,15 +1,12 @@
 import { FileSystem } from '../filesystem';
 import { Block } from './types/blocks/Block';
-import {
-  FunctionBlock,
-  FunctionLanguage
-} from './types/blocks/FunctionBlock';
+import { FunctionBlock } from './types/blocks/FunctionBlock';
 import { Connection } from './types/connections/Connection';
 
 export interface GeneratorInterface {
   initialize(context: GeneratorContext): void;
 
-  generateNewBlockCodeForDevelopment(block: FunctionBlock, targetRootFolder: string): Promise<void>;
+  generateNewBlockCodeForDevelopment(block: FunctionBlock, targetRootFolder: string, projectFolder: string): Promise<void>;
 
   generateBlockLib(block: FunctionBlock, blocks: Block[], connections: Connection[], targetRootFolder: string): Promise<void>;
 

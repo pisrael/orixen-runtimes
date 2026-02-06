@@ -112,7 +112,7 @@ export default function run(input: InputData, send: (payload: Outputs, options?:
       outputs: [createConnector({ id: 'out-1', name: 'testOutput' })],
     });
     
-    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir);
+    await generator.generateNewBlockCodeForDevelopment(block as any, tmpDir, 'test-project-id');
 
     const blockPath = getBlockPath('Test Block', 'test-exec-123');
     const indexPath = path.join(blockPath, 'index.ts');

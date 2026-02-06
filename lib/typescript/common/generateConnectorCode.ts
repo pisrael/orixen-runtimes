@@ -26,7 +26,7 @@ export async function generateConnectorCode({
   connector,
   connectorType,
 }: GenerateConnectorCodeParams): Promise<void> {
-  const templatePath = fs.join(resourcesPath, 'typescript_connector.ts.hbs');
+  const templatePath = fs.join(resourcesPath, 'typescript_shared_connector.ts.hbs');
   const templateContent = await fs.readFile(templatePath);
 
   const template = Handlebars.compile(templateContent);

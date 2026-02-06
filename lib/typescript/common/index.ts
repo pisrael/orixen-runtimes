@@ -9,3 +9,4 @@ export type { ParsedConnectors } from './types';
 export { generateRequestHeadersFile } from './development/generateRequestHeadersFile';
 export { generateVsCodeLaunchConfig } from './development/generateVsCodeLaunchConfig';
 export { generateDevelopmentLibFiles } from './development/generateDevelopmentLibFiles';
+export { copyBlockGitignore } from './development/copyBlockGitignore';

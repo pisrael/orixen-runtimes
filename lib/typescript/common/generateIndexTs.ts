@@ -24,7 +24,7 @@ export async function generateIndexTs({
   projectPath,
   block,
 }: GenerateIndexTsParams): Promise<void> {
-  const templatePath = fs.join(resourcesPath, 'typescript_index.ts.hbs');
+  const templatePath = fs.join(resourcesPath, 'typescript_shared_index.ts.hbs');
   const templateContent = await fs.readFile(templatePath);
 
   const template = Handlebars.compile(templateContent);
