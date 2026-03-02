@@ -39,6 +39,9 @@ describe('e2e deploy and test', () => {
     terraformInit(deployPath);
     terraformApply(deployPath);
 
+    //sleep for a bit to allow API Gateway to be fully ready before fetching outputs
+    await new Promise(resolve => setTimeout(resolve, 30_000));
+
     const outputs = parseTerraformOutputs(deployPath);
     apiGatewayUrl = outputs.apiGatewayUrl;
     wsWssUrl = outputs.wsWssUrl;
@@ -49,6 +52,8 @@ describe('e2e deploy and test', () => {
   });
 
   afterAll(async () => {
+    console.log('Starting cleanup...');
+
     if (deployPath) {
       try {
         terraformDestroy(deployPath);

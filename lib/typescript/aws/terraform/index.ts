@@ -59,7 +59,6 @@ export async function genAwsTerraformDeployData(params: DeployParams, project: P
   const projectInfra = createProjectInfra(terraformPrefix, project.project.includeVpc, project.project.includeFixedIp);
   const terraformBlockItems = await parseBlocksToTerraform({ blocks, terraformPrefix, projectInfra, envs: params.envs, region });
   const connectionItems = parseConnectionsToTerraform({ connections, blocks, terraformBlockItems, terraformPrefix });
-  addStageDependsOnRoutes(terraformBlockItems, connectionItems);
   parseBlocksDependencies(blocks, terraformBlockItems);
   const outputs = parseOutputs(projectInfra, terraformBlockItems);
 
@@ -301,25 +300,6 @@ function allowLambdaToRespondWs(terraformBlockItems: TerraformBlockItems, functi
   const lambdaWsRolePolicy = terraformBlockItems.lambdaWsRolePolicy;
   const newItems = createAllowLambdaToRespondToWs(lambda, lambdaRole, lambdaWsRolePolicy);
   return newItems;
-}
-
-function addStageDependsOnRoutes(terraformBlockItems: TerraformBlockItems, connectionItems: TerraformItem[]) {
-  const routeItems = connectionItems.filter(item => item.type === 'aws_apigatewayv2_route');
-  if (routeItems.length === 0) return;
-
-  const routeRefs = routeItems.map(route => getItemReference(route));
-
-  if (terraformBlockItems.wsGateway) {
-    terraformBlockItems.wsGateway.stage.properties.depends_on = routeRefs.filter(
-      ref => ref.includes('_ws_gateway_')
-    );
-  }
-
-  if (terraformBlockItems.apiGateway) {
-    terraformBlockItems.apiGateway.stage.properties.depends_on = routeRefs.filter(
-      ref => ref.includes('_api_gateway_')
-    );
-  }
 }
 
 function parseBlocksDependencies(blocks: Block[], terraformObjects: TerraformBlockItems) {
