@@ -236,6 +236,45 @@ describe('genAwsTerraformDeployData', () => {
     expect(serialized).not.toContain('aws_lambda_function');
   });
 
+  it('includes project env vars in lambda environment block', async () => {
+    const apiBlock = createApiBlock({ id: 'api-1' });
+    const fnBlock = createFunctionBlock({
+      id: 'fn-1',
+      status: 'unpublished',
+      inputs: [createConnector({ id: 'fn-in-1', name: 'defaultIn' })],
+    });
+
+    const conn = createConnection({
+      id: 'c1',
+      fromBlockId: 'api-1',
+      toBlockId: 'fn-1',
+      fromConnectorId: 'api-out-1',
+      toConnectorId: 'fn-in-1',
+    });
+
+    const params: DeployParams = {
+      deployFolder: '/tmp/deploy',
+      projectFolder: '/tmp/project',
+      region: 'us-east-1',
+      envs: {
+        DB_HOST: 'localhost',
+        API_KEY: 'secret123',
+      },
+    };
+    const project = makeProject({
+      blocks: [apiBlock as any, fnBlock as any],
+      connections: [conn],
+    });
+
+    const items = await genAwsTerraformDeployData(params, project);
+    const serialized = serializeTerraform(items);
+
+    expect(serialized).toContain('DB_HOST');
+    expect(serialized).toContain('localhost');
+    expect(serialized).toContain('API_KEY');
+    expect(serialized).toContain('secret123');
+  });
+
   it('excludes blocks with skipDeploy', async () => {
     const fnSkip = createFunctionBlock({
       id: 'fn-skip',

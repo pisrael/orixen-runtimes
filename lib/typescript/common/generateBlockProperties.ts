@@ -27,7 +27,7 @@ async function getBlockProperties(
   block: FunctionBlock
 ): Promise<Record<string, unknown>> {
   const blockPath = getBlockPath(projectPath, block);
-  const filePath = fs.join(blockPath, '.orixen', 'block_properties.yaml');
+  const filePath = fs.join(blockPath, '.orixen', 'block_code_properties.yaml');
 
   try {
     const exists = await fs.exists(filePath);

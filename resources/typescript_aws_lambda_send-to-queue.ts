@@ -5,7 +5,7 @@ import { OutputData } from './io-types';
 
 export async function sendToQueue(data: OutputData[], queueUrl: string) {
   const messageArray = data.map((item) => JSON.stringify(item));
-  const chunks = splitIntoChunks(messageArray, 1048576);
+  const chunks = splitIntoChunks(messageArray, 1048576, 10);
   const promises: Promise<SendMessageBatchResult>[] = [];
   const sqs = new SQS();
   for (const chunk of chunks) {
@@ -24,6 +24,7 @@ interface QueueMessage {
 function splitIntoChunks(
   messageArray: string[],
   maxSize: number,
+  maxChunkEntries: number
 ): QueueMessage[][] {
   const chunks: QueueMessage[][] = [];
   let chunk: QueueMessage[] = [];
@@ -34,7 +35,7 @@ function splitIntoChunks(
       MessageBody: messageArray[i],
     };
     const itemSize = Buffer.byteLength(JSON.stringify(item));
-    if (currentSize + itemSize > maxSize && chunk.length > 0) {
+    if ((currentSize + itemSize > maxSize && chunk.length > 0) || chunk.length >= maxChunkEntries) {
       chunks.push(chunk);
       chunk = [];
       currentSize = 0;

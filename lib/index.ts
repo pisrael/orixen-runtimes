@@ -1,5 +1,5 @@
 // Generator Interfaces
-export {
+export type {
   GeneratorInterface,
   GeneratorContext,
   DeployParams,

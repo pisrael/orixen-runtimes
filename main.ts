@@ -1,3 +1,4 @@
+import os from 'os';
 import * as path from 'path';
 
 import { NodeFileSystem } from './filesystem';
@@ -71,7 +72,7 @@ async function main(): Promise<void> {
           includeFixedIp: project.project.includeFixedIp,
           region: process.env.AWS_REGION || 'us-east-1',
           deployFolder: path.join(projectPath, 'deploy', runtime),
-          envs: await loadProjectEnv(fs, project.project.projectId)
+          envs: await loadProjectEnv(fs, project.project.projectId, os.homedir())
         }, (message) => {
           console.log(`[${(message.progress * 100).toFixed(2)}%] ${message.message}`);
         });
